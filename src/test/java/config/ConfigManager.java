@@ -13,17 +13,28 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import java.time.Duration;
+
 public class ConfigManager {
     private static WebDriver driver ;
-    public static WebDriverManager getDriver(){
-        if (driver==null){
-            setUp();
-        }
+    public static WebDriver getDriver(){
+//        int counter = 0;
+//        while (driver==null|| counter<=5) {
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+
+            //        if (driver==null){
+//            setUp(@Optional("chrome")browser);
+//        }
         return driver;
     }
     @BeforeSuite
-    @Parameters("browser" )
-    private static void setUp(@Optional("chrome")String browser) {
+    @Parameters("browser")
+    public static void setUp(@Optional("chrome")String browser) {
 if (browser.equalsIgnoreCase("chrome")){
     ChromeOptions chromeOptions = new ChromeOptions();
     chromeOptions.addArguments("--lang=en");
@@ -46,11 +57,19 @@ else if (browser.equalsIgnoreCase("edge")){
     driver = new EdgeDriver(edgeOptions);
 }
     else {
-        throw new IllegalArgumentException("Invalid browser name:"+browser)
+        throw new IllegalArgumentException("Invalid browser name:"+browser);
     }
+    driver.manage().window().maximize();
+    driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(20000));
+    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(60000));
+    //driver.navigate().to("http://demoqa.com/");
+       navigateToMainPage();
+    }
+    public static void navigateToMainPage(){
+        driver.navigate().to("http://demoqa.com/");
     }
     @AfterSuite
-    public static void tearDown(){
+    private static void tearDown(){
         driver.quit();
     }
 }
