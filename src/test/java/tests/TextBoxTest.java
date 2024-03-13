@@ -16,7 +16,7 @@ public class TextBoxTest extends BaseTest {
     }
     @Test
     public  void textBoxPageOpened() throws InterruptedException {
-        //Thread.sleep(5000);
+        Thread.sleep(5000);
         Assert.assertTrue(textBoxPage.validateURLTextBoxCorrect());
     }
 }

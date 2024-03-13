@@ -61,7 +61,7 @@ else if (browser.equalsIgnoreCase("edge")){
     }
     driver.manage().window().maximize();
     driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(20000));
-    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(60000));
+    driver.manage().timeouts().implicitlyWait(Duration.ofMillis(20000));
     //driver.navigate().to("http://demoqa.com/");
        navigateToMainPage();
     }
